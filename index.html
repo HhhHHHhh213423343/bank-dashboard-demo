@@ -2,6 +2,16 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
+    <!-- GitHub Pages 子目录：保证相对路径解析正确（本地打开不受影响） -->
+    <script>
+      (function () {
+        if (location.pathname.indexOf("/bank-dashboard-demo") === 0) {
+          var b = document.createElement("base");
+          b.href = "/bank-dashboard-demo/";
+          document.head.appendChild(b);
+        }
+      })();
+    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
