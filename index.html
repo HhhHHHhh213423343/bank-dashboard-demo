@@ -2,14 +2,19 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <!-- GitHub Pages 子目录：保证相对路径解析正确（本地打开不受影响） -->
+    <!-- GitHub Pages 子目录：用绝对路径加载脚本，避免无末尾斜杠时相对路径解析错误 -->
     <script>
       (function () {
-        if (location.pathname.indexOf("/bank-dashboard-demo") === 0) {
+        var isGHPages = location.pathname.indexOf("/bank-dashboard-demo") === 0;
+        if (isGHPages) {
           var b = document.createElement("base");
           b.href = "/bank-dashboard-demo/";
           document.head.appendChild(b);
         }
+        var s = document.createElement("script");
+        s.type = "module";
+        s.src = isGHPages ? "/bank-dashboard-demo/boot.js" : "./boot.js";
+        document.head.appendChild(s);
       })();
     </script>
     <meta
@@ -89,6 +94,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./boot.js"></script>
+    <!-- boot.js 由上方内联脚本按环境注入，此处不重复加载 -->
   </body>
 </html>
