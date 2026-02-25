@@ -39,10 +39,9 @@ window.addEventListener("unhandledrejection", (e) => {
   showError(e?.reason || e);
 });
 
-// cache-bust：避免 304 让你一直看到旧状态
+// 用当前脚本所在目录加载 main.js，子目录/根目录都兼容
 const v = Date.now();
-// GitHub Pages 子目录下用绝对路径，避免无末尾斜杠时 ./main.js 解析到根目录
-const base = (typeof document !== "undefined" && document.querySelector("base")?.getAttribute("href")) || "";
-const mainUrl = base ? `${base.replace(/\/$/, "")}/main.js?v=${v}` : `./main.js?v=${v}`;
-import(/* @vite-ignore */ mainUrl).catch(showError);
+const scriptDir = new URL(import.meta.url).href.replace(/\/[^/]*$/, "/");
+const mainUrl = scriptDir + "main.js?v=" + v;
+import(mainUrl).catch(showError);
 
