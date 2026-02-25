@@ -1,0 +1,23 @@
+# 环境与密钥（勿提交）
+.env
+.env.example
+
+# 仅上传 Demo，不上传 TTS/字幕相关
+tts_by_chapter.py
+whisper_align_srt.py
+gemini_align_srt.py
+run_pipeline.py
+requirements-tts.txt
+tts_output/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 系统与编辑器
+.DS_Store
+.idea/
+*.log

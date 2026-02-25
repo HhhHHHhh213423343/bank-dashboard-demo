@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
+    />
+    <meta name="theme-color" content="#06162f" />
+    <title>行长经营分析驾驶舱（H5 Demo）</title>
+
+    <!-- Tailwind CDN（Demo 用途） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#06162f",
+              card: "#0b2347",
+              card2: "#0a1f3f",
+              line: "rgba(255,255,255,.10)",
+              good: "#10b981", // 绿
+              bad: "#ef4444", // 红
+              accent: "#60a5fa",
+              warn: "#f59e0b",
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(0,0,0,.35)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* iOS 点击高亮 */
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
+      /* 细滚动条（可选） */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+      }
+      /* Slider 滑块 */
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #60a5fa;
+        cursor: pointer;
+        border: 2px solid rgba(255,255,255,.2);
+      }
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.12);
+      }
+    </style>
+  </head>
+  <body class="bg-ink text-white">
+    <div id="root">
+      <div class="min-h-screen grid place-items-center px-6">
+        <div class="w-full max-w-[520px]">
+          <div class="rounded-2xl border border-line bg-gradient-to-b from-card to-card2 shadow-soft p-4">
+            <div class="text-[15px] font-semibold">正在加载驾驶舱…</div>
+            <div class="mt-2 text-[12px] text-white/60">
+              请勿直接双击打开本页。请在项目目录运行：<code class="bg-black/30 px-1 rounded">python serve.py</code>，再在浏览器打开 <code class="bg-black/30 px-1 rounded">http://localhost:8765</code>。若长时间停留在此，请检查网络是否可访问 esm.sh CDN。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./boot.js"></script>
+  </body>
+</html>
