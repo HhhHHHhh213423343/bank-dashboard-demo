@@ -1,10 +1,6 @@
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from "https://esm.sh/react@18.3.1?target=es2022";
-import { createRoot } from "https://esm.sh/react-dom@18.3.1/client?target=es2022";
-import htm from "https://esm.sh/htm@3.1.1?target=es2022";
+import React, { useEffect, useMemo, useState } from "react";
+import { createRoot } from "react-dom/client";
+import htm from "htm";
 import {
   ArrowLeft,
   Landmark,
@@ -25,7 +21,7 @@ import {
   Sliders,
   X,
   Plus,
-} from "https://esm.sh/lucide-react@0.474.0?deps=react@18.3.1&target=es2022";
+} from "lucide-react";
 import {
   ResponsiveContainer,
   PieChart,
@@ -43,7 +39,7 @@ import {
   Funnel,
   LabelList,
   ReferenceLine,
-} from "https://esm.sh/recharts@2.12.7?deps=react@18.3.1,react-dom@18.3.1&target=es2022";
+} from "recharts";
 
 // htm + React：把 class -> className（避免 JSX 编译依赖）
 const reactCreateElement = (type, props, ...children) => {
@@ -56,6 +52,22 @@ const reactCreateElement = (type, props, ...children) => {
 };
 
 const html = htm.bind(reactCreateElement);
+
+// 打包后错误捕获（替代 boot.js）
+const rootEl = document.getElementById("root");
+function showLoadError(err) {
+  if (!rootEl) return;
+  const msg = (err?.stack || err?.message || String(err)).trim();
+  rootEl.innerHTML = `
+    <div class="min-h-screen grid place-items-center px-6">
+      <div class="w-full max-w-[520px] rounded-2xl border border-warn/30 bg-warn/10 p-4">
+        <div class="text-[15px] font-semibold">页面加载失败</div>
+        <div class="mt-2 text-[12px] text-white/70">${msg.slice(0, 500)}</div>
+      </div>
+    </div>`;
+}
+window.addEventListener("error", (e) => showLoadError(e?.error || e));
+window.addEventListener("unhandledrejection", (e) => showLoadError(e?.reason));
 
 // -----------------------------
 // Minimal Hash Router（避免 react-router-dom 与 React 版本冲突）
@@ -2482,4 +2494,4 @@ function App() {
   return html`<${Placeholder} title="未找到页面" />`;
 }
 
-createRoot(document.getElementById("root")).render(html`<${App} />`);
+if (rootEl) createRoot(rootEl).render(html`<${App} />`);
